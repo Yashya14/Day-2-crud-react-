@@ -1,70 +1,54 @@
 import React, { useState, useEffect } from "react";
-import AddEditUser from "./AddEditUser.jsx";
 import axios from "axios";
-import {Link} from "react-router-dom"
-import {toast} from "react-toastify"
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Home = () => {
+  // State to manage the list of users
   const [data, setData] = useState([]);
 
-  // for all users
+  // Fetch users when the component mounts
   useEffect(() => {
     getUsers();
   }, []);
 
-  // // get simgle user
-  // useEffect(() => {
-  //   getSingleUser();
-  // },[id])
-
-  //  const getSingleUser = async (id) => {
-  //   const result = await axios.get(`http://localhost:8000/user/${id}`);
-  //   if (result.status === 200) setData({...result.data[0]});
-  // };
-
-  // get all users
+  // Function to fetch all users
   const getUsers = async () => {
     const result = await axios.get("http://localhost:8000/users");
     if (result.status === 200) setData(result.data);
-    console.log(result.data);
   };
 
+  // Function to delete a user
   const deleteUser = async (id) => {
-    if (window.confirm("Are you sure you want to delete?")) {
+    if (window.confirm("Are you sure you want to delete this user?")) {
       const result = await axios.delete(`http://localhost:8000/user/${id}`);
       if (result.status === 200) {
-        toast.success(result.data);
-        getUsers();
+        toast.success("User deleted successfully!");
+        getUsers(); // Refresh the list of users
+      } else {
+        toast.error("Failed to delete user. Please try again.");
       }
     }
   };
 
-  
-
   return (
     <>
-      <h1 className="text-center mt-5">Employee List</h1>
+      <h1 className="text-center mb-4 mt-3">Employee Data</h1>
       <div className="container mt-3 d-flex justify-content-center">
-        <div className="form-container w-50 p-4 border rounded shadow-sm">
-          <AddEditUser />
-        </div>
-      </div>
-
-      <table className="container mt-5 border shadow table table-striped">
-        <thead>
-          <tr>
-            <th>Sr No.</th>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Contact</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data &&
-            data.map((employee, index) => {
-              return (
+        <div className="p-4 border rounded shadow-sm">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Sr No.</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((employee, index) => (
                 <tr key={employee.id}>
                   <td>{index + 1}</td>
                   <td>{employee.id}</td>
@@ -72,22 +56,25 @@ const Home = () => {
                   <td>{employee.email}</td>
                   <td>{employee.contact}</td>
                   <td>
-                    <Link >
-                      <button className="btn btn-primary me-2">Edit</button>
+                    <Link to={`/update/${employee.id}`}>
+                      <button className="btn btn-primary m-2">Edit</button>
                     </Link>
-
                     <button
-                      className="btn btn-danger"
+                      className="btn btn-danger "
                       onClick={() => deleteUser(employee.id)}
                     >
                       Delete
                     </button>
+                    <Link to={`/view/${employee.id}`}>
+                      <button className="btn btn-success m-2">View</button>
+                    </Link>
                   </td>
                 </tr>
-              );
-            })}
-        </tbody>
-      </table>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </>
   );
 };
