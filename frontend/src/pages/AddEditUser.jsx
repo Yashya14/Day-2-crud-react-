@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 const initialState = {
   name: "",
   email: "",
-  contact: "", // Add "contact" here, not "age" as in your destructuring
+  contact: "", 
 };
 
 const AddEditUser = () => {
@@ -18,7 +18,7 @@ const AddEditUser = () => {
     try {
       const result = await axios.post("http://localhost:8000/user", formData);
       if (result.status === 200) {
-        toast.success("User added successfully!"); // Fixed this line
+        toast.success("User added successfully!"); 
         setFormData(initialState); // Reset the form after success
       }
     } catch (error) {
@@ -28,7 +28,12 @@ const AddEditUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addEmployee(formData);
+    if(!name || !email || !contact) {
+      toast.error("Please enter all fields");
+    }else{
+
+      addEmployee(formData);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -47,7 +52,7 @@ const AddEditUser = () => {
             type="text"
             className="form-control"
             id="name"
-            name="name" // Make sure name matches the state key
+            name="name" 
             placeholder="Enter your first name"
             onChange={handleInputChange}
             value={name}
@@ -63,7 +68,7 @@ const AddEditUser = () => {
             type="email"
             className="form-control"
             id="email"
-            name="email" // Ensure this matches the state key
+            name="email" 
             placeholder="Enter your email"
             onChange={handleInputChange}
             value={email}
@@ -79,7 +84,7 @@ const AddEditUser = () => {
             type="text"
             className="form-control"
             id="contact"
-            name="contact" // Ensure this matches the state key
+            name="contact" 
             placeholder="Enter your contact number"
             onChange={handleInputChange}
             value={contact}
