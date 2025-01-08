@@ -6,7 +6,7 @@ import userRoutes from './routes/users.routes.js';
 const PORT = 8000;
 const app = express();
 
-app.use(bodyParser.json());
+app.use(bodyParser.json()); //Configures the app to use body-parser to parse JSON request bodies.
 app.use(cors());
 app.use("/", userRoutes);
 

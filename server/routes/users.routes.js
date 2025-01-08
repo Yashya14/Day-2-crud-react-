@@ -7,7 +7,7 @@ import {
   updateUser,
 } from "../controllers/users.controllers.js";
 
-const router = express.Router();
+const router = express.Router(); // initilalize express router
 
 router.get("/users", getUsers);
 router.post("/user", createUser);

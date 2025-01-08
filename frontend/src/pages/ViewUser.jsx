@@ -26,7 +26,7 @@ const ViewUser = () => {
   };
 
   return (
-    <div className="container my-5">
+    <div className="container my-5 py-4">
       <div className="row justify-content-center">
         <div className="col-12 col-md-6">
           <div className="card shadow-lg border-0 rounded-3">
@@ -37,8 +37,22 @@ const ViewUser = () => {
                 <li className="list-group-item"><strong>Name:</strong> {user.name}</li>
                 <li className="list-group-item"><strong>Email:</strong> {user.email}</li>
                 <li className="list-group-item"><strong>Contact:</strong> {user.contact}</li>
-              </ul>
-              <button className="btn btn-primary mt-4" onClick={() => navigate(-1)}>
+                <li className="list-group-item"><strong>Role :</strong> {user.role}</li>
+                <li className="list-group-item"><strong>Skills:</strong>
+                  <ul>
+                    {user.skills && user.skills.map((skill, index) => (
+                      <li key={index}>{skill}</li>
+                    ))}
+                  </ul>
+                </li>
+                </ul>
+
+                
+                
+                
+                
+              
+              <button className="btn btn-primary mt-4 mx-3" onClick={() => navigate(-1)}>
                 Back
               </button>
             </div>
