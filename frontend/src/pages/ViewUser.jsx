@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ViewUser = () => {
   const [user, setUser] = useState({});
@@ -26,33 +26,52 @@ const ViewUser = () => {
   };
 
   return (
-    <div className="container my-5 py-4">
-      <div className="row justify-content-center">
-        <div className="col-12 col-md-6">
-          <div className="card shadow-lg border-0 rounded-3">
-            <div className="card-body">
-              <h2 className="card-title text-center mb-4">User Details</h2>
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item"><strong>ID:</strong> {user.id}</li>
-                <li className="list-group-item"><strong>Name:</strong> {user.name}</li>
-                <li className="list-group-item"><strong>Email:</strong> {user.email}</li>
-                <li className="list-group-item"><strong>Contact:</strong> {user.contact}</li>
-                <li className="list-group-item"><strong>Role :</strong> {user.role}</li>
-                <li className="list-group-item"><strong>Skills:</strong>
-                  <ul>
-                    {user.skills && user.skills.map((skill, index) => (
-                      <li key={index}>{skill}</li>
+    <div className="container mx-auto my-10 px-4">
+      <div className="flex justify-center">
+        <div className="w-full sm:w-10/12 md:w-8/12 lg:w-6/12 xl:w-4/12">
+          <div className="bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg rounded-lg p-8 transform hover:scale-105 transition-all duration-300 ease-in-out">
+            <h2 className="text-center text-4xl font-bold text-white mb-6">
+              User Details
+            </h2>
+            <ul className="space-y-4">
+              <li className="flex justify-between text-lg text-white">
+                <span className="font-medium">ID :</span>{" "}
+                <span className="font-light">{user.id}</span>
+              </li>
+              <li className="flex justify-between text-lg text-white">
+                <span className="font-medium">Name :</span>{" "}
+                <span className="font-light">{user.name}</span>
+              </li>
+              <li className="flex justify-between text-lg text-white">
+                <span className="font-medium">Email :</span>{" "}
+                <span className="font-light">{user.email}</span>
+              </li>
+              <li className="flex justify-between text-lg text-white">
+                <span className="font-medium">Contact :</span>{" "}
+                <span className="font-light">{user.contact}</span>
+              </li>
+              <li className="flex justify-between text-lg text-white">
+                <span className="font-medium">Role :</span>{" "}
+                <span className="font-light">{user.role}</span>
+              </li>
+              <li className="text-lg text-white">
+                <span className="font-medium">Skills :</span>
+                <ul className="ml-4 space-y-2">
+                  {user.skills &&
+                    user.skills.map((skill, index) => (
+                      <li key={index} className="text-white">
+                        {skill}
+                      </li>
                     ))}
-                  </ul>
-                </li>
                 </ul>
+              </li>
+            </ul>
 
-                
-                
-                
-                
-              
-              <button className="btn btn-primary mt-4 mx-3" onClick={() => navigate(-1)}>
+            <div className="mt-8 flex justify-center">
+              <button
+                className="bg-white text-blue-600 px-6 py-3 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition ease-in-out duration-300"
+                onClick={() => navigate(-1)}
+              >
                 Back
               </button>
             </div>
